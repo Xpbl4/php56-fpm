@@ -31,8 +31,7 @@ pipelines:
           name: Build and Test
           script:
             - IMAGE_NAME=$BITBUCKET_REPO_SLUG
-            - IMAGE=${DOCKERHUB_NAMESPACE}/${IMAGE_NAME}
-            - docker build . --file Dockerfile --tag ${IMAGE_NAME} --tag ${IMAGE}:latest
+            - docker build . --file Dockerfile --tag ${IMAGE_NAME}
             - docker save ${IMAGE_NAME} --output "${IMAGE_NAME}.tar"
           services:
             - docker
@@ -51,5 +50,7 @@ pipelines:
             - IMAGE=${DOCKERHUB_NAMESPACE}/${IMAGE_NAME}
             - docker tag "${IMAGE_NAME}" "${IMAGE}:${VERSION}"
             - docker push "${IMAGE}:${VERSION}"
+            - docker tag "${IMAGE}:${VERSION}" "${IMAGE}:latest"
+            - docker push "${IMAGE}:latest"
           services:
             - docker
