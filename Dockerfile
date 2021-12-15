@@ -11,6 +11,7 @@ RUN apt-get update \
     php5-mysqlnd \
     php5-gd \
     php5-imagick \
+    cron \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
